@@ -1,18 +1,18 @@
 import React, { useState, useRef } from "react";
-import { Shield, Code2, Bug, BarChart3, Rocket, Upload, Download } from "lucide-react";
+import { Shield, Code2, Bug, BarChart3, Rocket, Upload, Download, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTheme } from "@/components/ThemeProvider";
 
 import AppSidebar from "@/components/AppSidebar";
-import CodeCanvas from "@/components/CodeCanvas";
 import EditorPane from "@/components/EditorPane";
 import IssuesPanel from "@/components/IssuesPanel";
 import InsightsPanel from "@/components/InsightsPanel";
 import OptimizePanel from "@/components/OptimizePanel";
-import { analyzeCode, detectLanguage, exportMarkdown, type AnalysisResults } from "@/services/analysis";
+import { analyzeCode, detectLanguage, exportMarkdown, saveHistory, type AnalysisResults } from "@/services/analysis";
 
 const TABS = [
   { id: 0, label: "Editor", icon: Code2 },

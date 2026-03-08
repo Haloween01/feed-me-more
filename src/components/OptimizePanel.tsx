@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Rocket, Copy, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { optimizeCode } from "@/services/analysis";
 
 interface OptimizePanelProps {
   code: string;

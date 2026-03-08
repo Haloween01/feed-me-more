@@ -121,6 +121,18 @@ export default function CodeSageApp() {
           </div>
 
           <div className="flex items-center gap-2">
+            {/* Theme toggle */}
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <button
+                  onClick={toggleTheme}
+                  className="p-2 rounded-lg hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+                </button>
+              </TooltipTrigger>
+              <TooltipContent>{theme === "dark" ? "Light mode" : "Dark mode"}</TooltipContent>
+            </Tooltip>
             {results && (
               <Tooltip>
                 <TooltipTrigger asChild>

@@ -1,18 +1,18 @@
 import React, { useState, useRef } from "react";
-import { Shield, Code2, Bug, BarChart3, Rocket, Upload, Download } from "lucide-react";
+import { Shield, Code2, Bug, BarChart3, Rocket, Upload, Download, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTheme } from "@/components/ThemeProvider";
 
 import AppSidebar from "@/components/AppSidebar";
-import CodeCanvas from "@/components/CodeCanvas";
 import EditorPane from "@/components/EditorPane";
 import IssuesPanel from "@/components/IssuesPanel";
 import InsightsPanel from "@/components/InsightsPanel";
 import OptimizePanel from "@/components/OptimizePanel";
-import { analyzeCode, detectLanguage, exportMarkdown, type AnalysisResults } from "@/services/analysis";
+import { analyzeCode, detectLanguage, exportMarkdown, saveHistory, type AnalysisResults } from "@/services/analysis";
 
 const TABS = [
   { id: 0, label: "Editor", icon: Code2 },
@@ -37,6 +37,7 @@ print(x)
 `;
 
 export default function CodeSageApp() {
+  const { theme, toggleTheme } = useTheme();
   const [tab, setTab] = useState(0);
   const [code, setCode] = useState(DEFAULT_CODE);
   const [language, setLanguage] = useState("python");
@@ -61,6 +62,15 @@ export default function CodeSageApp() {
       setResults(res);
       setTab(1);
       toast.success(`Analysis complete: ${res.summary.totalIssues} issues found`);
+      
+      // Save to history
+      await saveHistory({
+        language,
+        codeSnippet: code.slice(0, 5000),
+        summary: res.summary,
+        issues: res.issues,
+        timestamp: Date.now(),
+      });
     } catch (e) {
       toast.error("Analysis failed. Please try again.");
     } finally {
@@ -111,6 +121,18 @@ export default function CodeSageApp() {
           </div>
 
           <div className="flex items-center gap-2">
+            {/* Theme toggle */}
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <button
+                  onClick={toggleTheme}
+                  className="p-2 rounded-lg hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+                </button>
+              </TooltipTrigger>
+              <TooltipContent>{theme === "dark" ? "Light mode" : "Dark mode"}</TooltipContent>
+            </Tooltip>
             {results && (
               <Tooltip>
                 <TooltipTrigger asChild>

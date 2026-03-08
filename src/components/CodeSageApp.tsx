@@ -37,6 +37,7 @@ print(x)
 `;
 
 export default function CodeSageApp() {
+  const { theme, toggleTheme } = useTheme();
   const [tab, setTab] = useState(0);
   const [code, setCode] = useState(DEFAULT_CODE);
   const [language, setLanguage] = useState("python");

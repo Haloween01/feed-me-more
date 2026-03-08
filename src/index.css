@@ -6,6 +6,68 @@
 
 @layer base {
   :root {
+    --background: 210 20% 96%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 217 91% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 263 70% 55%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 210 20% 90%;
+    --muted-foreground: 215 16% 40%;
+
+    --accent: 263 70% 55%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 160 84% 35%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 6%;
+
+    --border: 214 20% 85%;
+    --input: 214 20% 85%;
+    --ring: 217 91% 50%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 222 20% 30%;
+    --sidebar-primary: 217 91% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 20% 92%;
+    --sidebar-accent-foreground: 222 47% 11%;
+    --sidebar-border: 214 20% 88%;
+    --sidebar-ring: 217 91% 50%;
+
+    --sage-blue: 217 91% 50%;
+    --sage-violet: 263 70% 55%;
+    --sage-emerald: 160 84% 35%;
+    --sage-amber: 38 92% 50%;
+    --sage-red: 0 84% 55%;
+    --sage-cyan: 187 86% 45%;
+
+    --gradient-primary: linear-gradient(135deg, hsl(217 91% 50%), hsl(263 70% 55%));
+    --gradient-success: linear-gradient(135deg, hsl(160 84% 35%), hsl(187 86% 45%));
+    --gradient-danger: linear-gradient(135deg, hsl(0 84% 55%), hsl(38 92% 50%));
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(210 20% 97%));
+
+    --shadow-glow-blue: 0 0 20px hsl(217 91% 50% / 0.1);
+    --shadow-glow-violet: 0 0 20px hsl(263 70% 55% / 0.1);
+  }
+
+  .dark {
     --background: 222 47% 6%;
     --foreground: 210 40% 92%;
 
@@ -40,8 +102,6 @@
     --input: 217 33% 17%;
     --ring: 217 91% 60%;
 
-    --radius: 0.75rem;
-
     --sidebar-background: 222 47% 8%;
     --sidebar-foreground: 210 40% 85%;
     --sidebar-primary: 217 91% 60%;
@@ -51,7 +111,6 @@
     --sidebar-border: 217 33% 15%;
     --sidebar-ring: 217 91% 60%;
 
-    /* Custom tokens */
     --sage-blue: 217 91% 60%;
     --sage-violet: 263 70% 58%;
     --sage-emerald: 160 84% 39%;

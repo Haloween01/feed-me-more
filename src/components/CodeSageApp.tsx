@@ -188,11 +188,7 @@ export default function CodeSageApp() {
               className="h-full"
             >
               {tab === 0 && (
-                code === DEFAULT_CODE || !code ? (
-                  <CodeCanvas onCodeDetected={handleCodeDetected} />
-                ) : (
-                  <EditorPane code={code} language={language} onChange={setCode} />
-                )
+                <EditorPane code={code} language={language} onChange={setCode} />
               )}
               {tab === 1 && <IssuesPanel results={results} />}
               {tab === 2 && <InsightsPanel results={results} />}

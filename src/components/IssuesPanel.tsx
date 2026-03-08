@@ -74,20 +74,14 @@ export default function IssuesPanel({ results }: IssuesPanelProps) {
   });
   const [activeTab, setActiveTab] = useState<"summary" | "issues">("summary");
 
-  if (!results?.issues) {
-    return (
-      <div className="flex items-center justify-center h-96 text-muted-foreground">
-        No results yet. Run <span className="text-primary font-semibold ml-1">Review Code</span>.
-      </div>
-    );
-  }
+  const issues = results?.issues || [];
 
   const { keptIssues, minorIssues } = useMemo(() => {
     const kept: AnalysisIssue[] = [];
     const minor: AnalysisIssue[] = [];
-    results.issues.forEach(i => (isLowValue(i) ? minor : kept).push(i));
+    issues.forEach(i => (isLowValue(i) ? minor : kept).push(i));
     return { keptIssues: kept, minorIssues: minor };
-  }, [results.issues]);
+  }, [issues]);
 
   const grouped = useMemo(() => {
     return keptIssues.reduce((acc, issue) => {
@@ -98,13 +92,21 @@ export default function IssuesPanel({ results }: IssuesPanelProps) {
     }, {} as Record<string, AnalysisIssue[]>);
   }, [keptIssues]);
 
-  const categories = ["syntax", "style", "security", "quality", "rule"];
-  const summary = results.summary;
-
   const topIssues = useMemo(() => {
     const weights: Record<string, number> = { critical: 4, high: 3, medium: 2, low: 1 };
     return [...keptIssues].sort((a, b) => (weights[b.severity] || 0) - (weights[a.severity] || 0)).slice(0, 5);
   }, [keptIssues]);
+
+  if (!results?.issues) {
+    return (
+      <div className="flex items-center justify-center h-96 text-muted-foreground">
+        No results yet. Run <span className="text-primary font-semibold ml-1">Review Code</span>.
+      </div>
+    );
+  }
+
+  const categories = ["syntax", "style", "security", "quality", "rule"];
+  const summary = results.summary;
 
   const toggle = (key: string) => setOpenMap(m => ({ ...m, [key]: !m[key] }));
 

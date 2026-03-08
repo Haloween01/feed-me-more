@@ -62,6 +62,15 @@ export default function CodeSageApp() {
       setResults(res);
       setTab(1);
       toast.success(`Analysis complete: ${res.summary.totalIssues} issues found`);
+      
+      // Save to history
+      await saveHistory({
+        language,
+        codeSnippet: code.slice(0, 5000),
+        summary: res.summary,
+        issues: res.issues,
+        timestamp: Date.now(),
+      });
     } catch (e) {
       toast.error("Analysis failed. Please try again.");
     } finally {

@@ -33,19 +33,21 @@ function ScoreCircle({ score, label, color }: { score: number; label: string; co
   const offset = circumference - (score / 100) * circumference;
 
   return (
-    <div className="flex flex-col items-center">
-      <svg width="100" height="100" className="transform -rotate-90">
-        <circle cx="50" cy="50" r="40" fill="none" stroke="hsl(var(--border))" strokeWidth="6" />
-        <circle
-          cx="50" cy="50" r="40" fill="none" stroke={color} strokeWidth="6"
-          strokeLinecap="round" strokeDasharray={circumference} strokeDashoffset={offset}
-          className="transition-all duration-1000 ease-out"
-        />
-      </svg>
-      <div className="absolute mt-8 text-center">
-        <p className="text-xl font-bold text-foreground">{score}</p>
+    <div className="flex flex-col items-center gap-2">
+      <div className="relative w-[100px] h-[100px]">
+        <svg width="100" height="100" className="transform -rotate-90">
+          <circle cx="50" cy="50" r="40" fill="none" stroke="hsl(var(--border))" strokeWidth="6" />
+          <circle
+            cx="50" cy="50" r="40" fill="none" stroke={color} strokeWidth="6"
+            strokeLinecap="round" strokeDasharray={circumference} strokeDashoffset={offset}
+            className="transition-all duration-1000 ease-out"
+          />
+        </svg>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <p className="text-xl font-bold text-foreground">{score}</p>
+        </div>
       </div>
-      <p className="text-xs text-muted-foreground mt-2 font-medium">{label}</p>
+      <p className="text-xs text-muted-foreground font-medium">{label}</p>
     </div>
   );
 }

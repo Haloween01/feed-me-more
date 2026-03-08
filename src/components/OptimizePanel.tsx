@@ -9,35 +9,6 @@ interface OptimizePanelProps {
   language: string;
 }
 
-// Mock optimization
-async function mockOptimize(code: string, language: string) {
-  await new Promise(r => setTimeout(r, 2000 + Math.random() * 1500));
-
-  const lines = code.split("\n");
-  const optimized = lines.map(line => {
-    // Simple mock transformations
-    if (line.includes("var ")) return line.replace("var ", "const ");
-    if (line.includes("== ") && !line.includes("===")) return line.replace("== ", "=== ");
-    return line;
-  }).join("\n");
-
-  return {
-    status: "success",
-    optimized_code: optimized + "\n// Optimized by CodeSAGE AI",
-    detected_patterns: ["Loop Optimization", "Variable Hoisting", "Dead Code Removal"],
-    optimization_labels: ["Performance", "Readability", "Best Practices"],
-    lines_before: lines.length,
-    lines_after: optimized.split("\n").length,
-    added_lines: 3,
-    removed_lines: 1,
-    benchmark_ms: 45.2 + Math.random() * 30,
-    diff: lines.map((line, i) => ({
-      line,
-      type: i % 7 === 0 ? "removed" : i % 5 === 0 ? "added" : "unchanged",
-    })),
-  };
-}
-
 export default function OptimizePanel({ code, language }: OptimizePanelProps) {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<any>(null);
@@ -53,7 +24,7 @@ export default function OptimizePanel({ code, language }: OptimizePanelProps) {
     setLoading(true);
     setError(null);
     try {
-      const result = await mockOptimize(code, language);
+      const result = await optimizeCode(code, language);
       setData(result);
     } catch (err: any) {
       setError(err.message || "Optimization failed");
